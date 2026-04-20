@@ -1,9 +1,0 @@
-127.0.0.1 - - [20/Apr/2026 18:30:47] "GET /playful-character.html HTTP/1.1" 200 -
-127.0.0.1 - - [20/Apr/2026 18:30:47] code 404, message File not found
-127.0.0.1 - - [20/Apr/2026 18:30:47] "GET /favicon.ico HTTP/1.1" 404 -
-127.0.0.1 - - [20/Apr/2026 18:31:01] "GET / HTTP/1.1" 200 -
-127.0.0.1 - - [20/Apr/2026 18:31:07] "GET /playful-character.html HTTP/1.1" 304 -
-127.0.0.1 - - [20/Apr/2026 18:31:29] "GET /liquid-native.html HTTP/1.1" 200 -
-127.0.0.1 - - [20/Apr/2026 18:31:46] "GET /editorial-crisp.html HTTP/1.1" 200 -
-127.0.0.1 - - [20/Apr/2026 18:34:05] "GET /playful-character.html HTTP/1.1" 304 -
-127.0.0.1 - - [20/Apr/2026 18:35:03] "GET /feature-plant-detail.html HTTP/1.1" 200 -

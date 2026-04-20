@@ -34,3 +34,7 @@ fastlane/screenshots
 .vscode/
 .idea/
 *.iml
+
+# liquid-ios plugin runtime artifacts
+**/.prototype-server.log
+**/.prototype-server.pid
