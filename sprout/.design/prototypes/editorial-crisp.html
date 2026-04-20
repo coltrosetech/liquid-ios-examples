@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><title>Sprout — Editorial Crisp</title>
+<style>
+:root {
+  --color-primary: #0066FF; --color-bg-light: #FFFFFF; --color-bg-dark: #0A0A0A;
+  --motion-duration: 200ms; --motion-easing: ease-in-out;
+  --radius-card: 8px;
+}
+@media (prefers-color-scheme: light) { :root { --color-bg: var(--color-bg-light); } }
+@media (prefers-color-scheme: dark) { :root { --color-bg: var(--color-bg-dark); color: white; } }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: SF Pro, -apple-system, sans-serif; background: #2a2a2a; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 40px 0; }
+.device { width: 393px; height: 852px; background: var(--color-bg); border-radius: 55px; position: relative; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.5); }
+.device::before { content: ""; position: absolute; top: 11px; left: 50%; /* swiftui: layout-only */ transform: translateX(-50%); width: 126px; height: 37px; background: #000; border-radius: 20px; z-index: 100; }
+.status-bar { position: absolute; top: 0; left: 0; right: 0; height: 54px; display: flex; justify-content: space-between; align-items: flex-end; padding: 0 24px 8px; font-size: 17px; font-weight: 600; z-index: 50; }
+.home-indicator { position: absolute; bottom: 8px; left: 50%; /* swiftui: layout-only */ transform: translateX(-50%); width: 134px; height: 5px; background: currentColor; border-radius: 3px; opacity: 0.6; z-index: 50; }
+.safe-area { position: absolute; top: 59px; left: 0; right: 0; bottom: 34px; padding: 0 20px; }
+.row { /* swiftui: row with .easeInOut(duration: 0.2) on background */ transition: background var(--motion-duration) var(--motion-easing); }
+.row:active { background: rgba(0, 102, 255, 0.06); }
+</style>
+</head>
+<body>
+<div class="device">
+  <div class="status-bar"><span>9:41</span><span>·· 􀙇 􀛨</span></div>
+  <div class="safe-area">
+    <h1 style="padding: 24px 0 4px; font-size: 28px; font-weight: 600; letter-spacing: -0.02em;">Garden</h1>
+    <p style="font-size: 12px; opacity: 0.5; font-family: SF Mono; padding-bottom: 16px;">4 PLANTS · 2 THIRSTY</p>
+
+    <ul style="list-style: none; padding: 0;">
+      <!-- swiftui: List with hairline separators -->
+      <li class="row" style="padding: 14px 0; border-bottom: 1px solid rgba(0,0,0,0.06); display: flex; gap: 14px; align-items: center; cursor: pointer;">
+        <span style="font-family: SF Mono; font-size: 11px; opacity: 0.5; min-width: 60px;">6D AGO</span>
+        <div style="flex: 1;">
+          <p style="font-size: 15px; font-weight: 500;">Mona <span style="opacity: 0.4; font-weight: 400;">— Monstera</span></p>
+          <p style="font-size: 12px; opacity: 0.55; font-family: SF Mono; color: var(--color-primary);">⚠ NEEDS WATER</p>
+        </div>
+        <button style="background: none; border: 1px solid var(--color-primary); color: var(--color-primary); padding: 6px 12px; font-size: 12px; font-family: SF Mono; cursor: pointer; border-radius: 4px;">WATER</button>
+      </li>
+      <li class="row" style="padding: 14px 0; border-bottom: 1px solid rgba(0,0,0,0.06); display: flex; gap: 14px; align-items: center; cursor: pointer;">
+        <span style="font-family: SF Mono; font-size: 11px; opacity: 0.5; min-width: 60px;">4D AGO</span>
+        <div style="flex: 1;">
+          <p style="font-size: 15px; font-weight: 500;">Felix <span style="opacity: 0.4; font-weight: 400;">— Fiddle leaf fig</span></p>
+          <p style="font-size: 12px; opacity: 0.55; font-family: SF Mono;">DUE SOON</p>
+        </div>
+        <button style="background: none; border: 1px solid rgba(0,0,0,0.3); color: rgba(0,0,0,0.6); padding: 6px 12px; font-size: 12px; font-family: SF Mono; cursor: pointer; border-radius: 4px;">WATER</button>
+      </li>
+      <li class="row" style="padding: 14px 0; border-bottom: 1px solid rgba(0,0,0,0.06); display: flex; gap: 14px; align-items: center; cursor: pointer;">
+        <span style="font-family: SF Mono; font-size: 11px; opacity: 0.5; min-width: 60px;">2D AGO</span>
+        <div style="flex: 1;">
+          <p style="font-size: 15px; font-weight: 500;">Spike <span style="opacity: 0.4; font-weight: 400;">— Cactus</span></p>
+          <p style="font-size: 12px; opacity: 0.55; font-family: SF Mono;">DUE IN 5D</p>
+        </div>
+      </li>
+      <li class="row" style="padding: 14px 0; border-bottom: 1px solid rgba(0,0,0,0.06); display: flex; gap: 14px; align-items: center; cursor: pointer;">
+        <span style="font-family: SF Mono; font-size: 11px; opacity: 0.5; min-width: 60px;">1D AGO</span>
+        <div style="flex: 1;">
+          <p style="font-size: 15px; font-weight: 500;">Pothos <span style="opacity: 0.4; font-weight: 400;">— Pothos</span></p>
+          <p style="font-size: 12px; opacity: 0.55; font-family: SF Mono;">DUE IN 6D</p>
+        </div>
+      </li>
+    </ul>
+
+    <button style="position: absolute; bottom: 24px; right: 20px; width: 48px; height: 48px; border-radius: var(--radius-card); background: var(--color-primary); color: white; border: none; font-size: 22px; font-weight: 300; cursor: pointer;">+</button>
+  </div>
+  <div class="home-indicator"></div>
+</div>
+</body>
+</html>

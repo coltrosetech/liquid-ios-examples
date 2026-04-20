@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Breathe — Editorial Crisp</title>
+<style>
+:root {
+  --color-primary: #0066FF; --color-bg-light: #FFFFFF; --color-bg-dark: #0A0A0A;
+  --motion-duration: 200ms; --motion-easing: ease-in-out;
+  --radius-card: 8px;
+}
+@media (prefers-color-scheme: light) { :root { --color-bg: var(--color-bg-light); } }
+@media (prefers-color-scheme: dark) { :root { --color-bg: var(--color-bg-dark); color: white; } }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: SF Pro, -apple-system, sans-serif; background: #2a2a2a; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 40px 0; }
+.device { width: 393px; height: 852px; background: var(--color-bg); border-radius: 55px; position: relative; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.5); }
+.device::before { content: ""; position: absolute; top: 11px; left: 50%; /* swiftui: layout-only */ transform: translateX(-50%); width: 126px; height: 37px; background: #000; border-radius: 20px; z-index: 100; }
+.status-bar { position: absolute; top: 0; left: 0; right: 0; height: 54px; display: flex; justify-content: space-between; align-items: flex-end; padding: 0 24px 8px; font-size: 17px; font-weight: 600; z-index: 50; }
+.home-indicator { position: absolute; bottom: 8px; left: 50%; /* swiftui: layout-only */ transform: translateX(-50%); width: 134px; height: 5px; background: currentColor; border-radius: 3px; opacity: 0.6; z-index: 50; }
+.safe-area { position: absolute; top: 59px; left: 0; right: 0; bottom: 34px; padding: 0 20px; }
+
+@keyframes breathe { 0%, 100% { transform: scale(0.92); } 50% { transform: scale(1.0); } }
+.breath-square { /* swiftui: phaseAnimator with .easeInOut(duration: 4) */ animation: breathe 8s ease-in-out infinite; }
+
+.session-row { /* swiftui: row with .easeInOut(duration: 0.2) on background */ transition: background var(--motion-duration) var(--motion-easing); }
+.session-row:active { background: rgba(0, 102, 255, 0.06); }
+.session-row:hover { background: rgba(0, 102, 255, 0.04); }
+</style>
+</head>
+<body>
+<div class="device">
+  <div class="status-bar"><span>9:41</span><span>·· 􀙇 􀛨</span></div>
+  <div class="safe-area">
+
+    <h1 style="padding: 24px 0 4px; font-size: 28px; font-weight: 600; letter-spacing: -0.02em;">Breathe</h1>
+    <p style="font-size: 13px; opacity: 0.5; font-family: SF Mono; padding-bottom: 24px;">SESSION 04 · 5 MIN</p>
+
+    <!-- swiftui: VStack centered, breath-square is Rectangle with phaseAnimator -->
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 32px; padding: 24px 0 40px;">
+      <!-- swiftui: Rectangle().fill(.accentColor).phaseAnimator(...) -->
+      <div class="breath-square" style="
+        width: 160px; height: 160px;
+        background: var(--color-primary);
+        border-radius: 4px;
+      "></div>
+      <div style="text-align: center;">
+        <p style="font-size: 14px; font-family: SF Mono; opacity: 0.6;">INHALE · 4S</p>
+      </div>
+    </div>
+
+    <!-- swiftui: Button with .borderedProminent style -->
+    <button style="
+      width: 100%; padding: 16px;
+      background: var(--color-primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-card);
+      font-size: 15px; font-weight: 500;
+      font-family: SF Mono;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: opacity var(--motion-duration) var(--motion-easing);
+    ">START</button>
+
+    <p style="text-align: left; padding-top: 32px; font-size: 12px; opacity: 0.5; font-family: SF Mono;">RECENT</p>
+
+    <!-- swiftui: List with hairline separators -->
+    <ul style="list-style: none; padding: 0; margin-top: 8px;">
+      <li class="session-row" style="padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.06); display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+        <div>
+          <p style="font-size: 14px; font-weight: 500;">Box breathing</p>
+          <p style="font-size: 12px; opacity: 0.55; font-family: SF Mono;">07:18 · 5min</p>
+        </div>
+        <span style="font-size: 12px; opacity: 0.6; font-family: SF Mono;">→</span>
+      </li>
+      <li class="session-row" style="padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.06); display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+        <div>
+          <p style="font-size: 14px; font-weight: 500;">4-7-8 calm</p>
+          <p style="font-size: 12px; opacity: 0.55; font-family: SF Mono;">Y · 22:40 · 5min</p>
+        </div>
+        <span style="font-size: 12px; opacity: 0.6; font-family: SF Mono;">→</span>
+      </li>
+      <li class="session-row" style="padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.06); display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+        <div>
+          <p style="font-size: 14px; font-weight: 500;">Focus reset</p>
+          <p style="font-size: 12px; opacity: 0.55; font-family: SF Mono;">Mon · 14:05 · 3min</p>
+        </div>
+        <span style="font-size: 12px; opacity: 0.6; font-family: SF Mono;">→</span>
+      </li>
+    </ul>
+
+  </div>
+  <div class="home-indicator"></div>
+</div>
+</body>
+</html>

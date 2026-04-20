@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Todo App — Editorial Crisp</title>
+<style>
+:root {
+  --color-primary: #0066FF;
+  --color-bg-light: #FFFFFF;
+  --color-bg-dark: #0A0A0A;
+  --space-1: 4px; --space-2: 8px; --space-3: 16px; --space-4: 24px;
+  --motion-duration: 200ms;
+  --motion-easing: ease-in-out;
+  --font-primary: SF Pro;
+  --font-mono: SF Mono;
+  --radius-card: 8px;
+}
+@media (prefers-color-scheme: dark) { :root { --color-bg: var(--color-bg-dark); color: white; } }
+@media (prefers-color-scheme: light) { :root { --color-bg: var(--color-bg-light); } }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-primary), -apple-system, sans-serif; background: #2a2a2a; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 40px 0; }
+.device { width: 393px; height: 852px; background: var(--color-bg); border-radius: 55px; position: relative; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.5); }
+.device::before { content: ""; position: absolute; top: 11px; left: 50%; /* swiftui: layout-only */ transform: translateX(-50%); width: 126px; height: 37px; background: #000; border-radius: 20px; z-index: 100; }
+.status-bar { position: absolute; top: 0; left: 0; right: 0; height: 54px; display: flex; justify-content: space-between; align-items: flex-end; padding: 0 24px 8px; font-size: 17px; font-weight: 600; z-index: 50; }
+.home-indicator { position: absolute; bottom: 8px; left: 50%; /* swiftui: layout-only */ transform: translateX(-50%); width: 134px; height: 5px; background: currentColor; border-radius: 3px; opacity: 0.6; z-index: 50; }
+.safe-area { position: absolute; top: 59px; left: 0; right: 0; bottom: 34px; overflow-y: auto; }
+li.checked .checkbox { background: var(--color-primary); border-color: var(--color-primary); }
+li.checked .checkbox::after { content: "✓"; color: white; font-size: 12px; line-height: 18px; text-align: center; display: block; }
+li.checked h4 { text-decoration: line-through; opacity: 0.4; }
+.fab:active { /* swiftui: .scaleEffect on press via .buttonStyle */ transform: scale(0.94); }
+</style>
+</head>
+<body>
+<div class="device">
+  <div class="status-bar"><span>9:41</span><span>·· 􀙇 􀛨</span></div>
+  <div class="safe-area">
+    <div class="screen">
+      <h1 style="padding: var(--space-4) var(--space-3) var(--space-2); font-size: 28px; font-weight: 600; letter-spacing: -0.02em;">Today</h1>
+      <p style="padding: 0 var(--space-3) var(--space-3); font-size: 13px; opacity: 0.5; font-family: var(--font-mono);">3 of 7 done</p>
+
+      <!-- swiftui: List with hairline separators, .easeInOut(duration: 0.2) on toggle -->
+      <ul style="list-style: none; padding: 0;">
+        <!-- swiftui: TaskRow with .animation(.easeInOut(duration: 0.2), value: task.isDone) -->
+        <li onclick="toggle(this)" class="checked" style="padding: var(--space-3); border-bottom: 1px solid rgba(0,0,0,0.06); transition: background var(--motion-duration) var(--motion-easing); cursor: pointer; display: flex; gap: var(--space-3); align-items: flex-start;">
+          <div class="checkbox" style="width: 20px; height: 20px; border: 1.5px solid rgba(0,0,0,0.3); border-radius: 4px; transition: all var(--motion-duration) var(--motion-easing); flex-shrink: 0; margin-top: 2px;"></div>
+          <div style="flex: 1;">
+            <h4 style="font-size: 15px; font-weight: 500; transition: opacity var(--motion-duration) var(--motion-easing);">Reply to Sam re: design tokens</h4>
+            <p style="font-size: 12px; opacity: 0.5; font-family: var(--font-mono); margin-top: 2px;">09:14 · #work</p>
+          </div>
+        </li>
+        <li onclick="toggle(this)" class="checked" style="padding: var(--space-3); border-bottom: 1px solid rgba(0,0,0,0.06); transition: background var(--motion-duration) var(--motion-easing); cursor: pointer; display: flex; gap: var(--space-3); align-items: flex-start;">
+          <div class="checkbox" style="width: 20px; height: 20px; border: 1.5px solid rgba(0,0,0,0.3); border-radius: 4px; transition: all var(--motion-duration) var(--motion-easing); flex-shrink: 0; margin-top: 2px;"></div>
+          <div style="flex: 1;">
+            <h4 style="font-size: 15px; font-weight: 500;">Review pull request #482</h4>
+            <p style="font-size: 12px; opacity: 0.5; font-family: var(--font-mono); margin-top: 2px;">10:30 · #work</p>
+          </div>
+        </li>
+        <li onclick="toggle(this)" class="checked" style="padding: var(--space-3); border-bottom: 1px solid rgba(0,0,0,0.06); transition: background var(--motion-duration) var(--motion-easing); cursor: pointer; display: flex; gap: var(--space-3); align-items: flex-start;">
+          <div class="checkbox" style="width: 20px; height: 20px; border: 1.5px solid rgba(0,0,0,0.3); border-radius: 4px; transition: all var(--motion-duration) var(--motion-easing); flex-shrink: 0; margin-top: 2px;"></div>
+          <div style="flex: 1;">
+            <h4 style="font-size: 15px; font-weight: 500;">Coffee</h4>
+            <p style="font-size: 12px; opacity: 0.5; font-family: var(--font-mono); margin-top: 2px;">07:50 · #personal</p>
+          </div>
+        </li>
+
+        <!-- Active tasks -->
+        <li onclick="toggle(this)" style="padding: var(--space-3); border-bottom: 1px solid rgba(0,0,0,0.06); transition: background var(--motion-duration) var(--motion-easing); cursor: pointer; display: flex; gap: var(--space-3); align-items: flex-start;">
+          <div class="checkbox" style="width: 20px; height: 20px; border: 1.5px solid rgba(0,0,0,0.3); border-radius: 4px; transition: all var(--motion-duration) var(--motion-easing); flex-shrink: 0; margin-top: 2px;"></div>
+          <div style="flex: 1;">
+            <h4 style="font-size: 15px; font-weight: 500;">Draft Q3 metrics deck</h4>
+            <p style="font-size: 12px; opacity: 0.5; font-family: var(--font-mono); margin-top: 2px;">14:00 · #work</p>
+          </div>
+        </li>
+        <li onclick="toggle(this)" style="padding: var(--space-3); border-bottom: 1px solid rgba(0,0,0,0.06); transition: background var(--motion-duration) var(--motion-easing); cursor: pointer; display: flex; gap: var(--space-3); align-items: flex-start;">
+          <div class="checkbox" style="width: 20px; height: 20px; border: 1.5px solid rgba(0,0,0,0.3); border-radius: 4px; transition: all var(--motion-duration) var(--motion-easing); flex-shrink: 0; margin-top: 2px;"></div>
+          <div style="flex: 1;">
+            <h4 style="font-size: 15px; font-weight: 500;">Pick up dry cleaning</h4>
+            <p style="font-size: 12px; opacity: 0.5; font-family: var(--font-mono); margin-top: 2px;">17:00 · #personal</p>
+          </div>
+        </li>
+        <li onclick="toggle(this)" style="padding: var(--space-3); border-bottom: 1px solid rgba(0,0,0,0.06); transition: background var(--motion-duration) var(--motion-easing); cursor: pointer; display: flex; gap: var(--space-3); align-items: flex-start;">
+          <div class="checkbox" style="width: 20px; height: 20px; border: 1.5px solid rgba(0,0,0,0.3); border-radius: 4px; transition: all var(--motion-duration) var(--motion-easing); flex-shrink: 0; margin-top: 2px;"></div>
+          <div style="flex: 1;">
+            <h4 style="font-size: 15px; font-weight: 500;">Call dad about weekend</h4>
+            <p style="font-size: 12px; opacity: 0.5; font-family: var(--font-mono); margin-top: 2px;">18:30 · #personal</p>
+          </div>
+        </li>
+        <li onclick="toggle(this)" style="padding: var(--space-3); border-bottom: 1px solid rgba(0,0,0,0.06); transition: background var(--motion-duration) var(--motion-easing); cursor: pointer; display: flex; gap: var(--space-3); align-items: flex-start;">
+          <div class="checkbox" style="width: 20px; height: 20px; border: 1.5px solid rgba(0,0,0,0.3); border-radius: 4px; transition: all var(--motion-duration) var(--motion-easing); flex-shrink: 0; margin-top: 2px;"></div>
+          <div style="flex: 1;">
+            <h4 style="font-size: 15px; font-weight: 500;">Read 30min before bed</h4>
+            <p style="font-size: 12px; opacity: 0.5; font-family: var(--font-mono); margin-top: 2px;">22:00 · #personal</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- swiftui: FloatingActionButton — Button with .buttonStyle inducing .scaleEffect on press -->
+    <button class="fab" style="position: absolute; bottom: var(--space-3); right: var(--space-3); width: 56px; height: 56px; border-radius: 28px; background: var(--color-primary); color: white; border: none; font-size: 28px; font-weight: 300; cursor: pointer; box-shadow: 0 4px 12px rgba(0,102,255,0.3); transition: transform var(--motion-duration) var(--motion-easing); display: flex; align-items: center; justify-content: center;">+</button>
+  </div>
+  <div class="home-indicator"></div>
+</div>
+<script>
+function toggle(el) { el.classList.toggle('checked'); }
+</script>
+</body>
+</html>

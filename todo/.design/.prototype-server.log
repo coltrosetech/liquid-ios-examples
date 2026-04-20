@@ -1,0 +1,9 @@
+127.0.0.1 - - [20/Apr/2026 17:57:51] "GET /editorial-crisp.html HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2026 17:57:51] code 404, message File not found
+127.0.0.1 - - [20/Apr/2026 17:57:51] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [20/Apr/2026 17:57:55] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2026 17:57:55] code 404, message File not found
+127.0.0.1 - - [20/Apr/2026 17:57:55] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [20/Apr/2026 17:58:09] "GET /liquid-native.html HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2026 17:58:21] "GET /playful-character.html HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2026 17:58:48] "GET /editorial-crisp.html HTTP/1.1" 304 -

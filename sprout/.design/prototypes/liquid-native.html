@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><title>Sprout — Liquid Native</title>
+<style>
+:root {
+  --color-primary: #007AFF; --color-bg-light: #F2F2F7; --color-bg-dark: #000000;
+  --motion-duration: 500ms; --motion-easing: cubic-bezier(0.32, 0.72, 0.32, 1.08);
+  --radius-card: 16px;
+}
+@media (prefers-color-scheme: light) { :root { --color-bg: var(--color-bg-light); } }
+@media (prefers-color-scheme: dark) { :root { --color-bg: var(--color-bg-dark); color: white; } }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: SF Pro, -apple-system, sans-serif; background: #2a2a2a; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 40px 0; }
+.device { width: 393px; height: 852px; background: linear-gradient(180deg, #D4F0E0 0%, #E5F0D4 100%); border-radius: 55px; position: relative; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.5); }
+.device::before { content: ""; position: absolute; top: 11px; left: 50%; /* swiftui: layout-only */ transform: translateX(-50%); width: 126px; height: 37px; background: #000; border-radius: 20px; z-index: 100; }
+.status-bar { position: absolute; top: 0; left: 0; right: 0; height: 54px; display: flex; justify-content: space-between; align-items: flex-end; padding: 0 24px 8px; font-size: 17px; font-weight: 600; z-index: 50; }
+.home-indicator { position: absolute; bottom: 8px; left: 50%; /* swiftui: layout-only */ transform: translateX(-50%); width: 134px; height: 5px; background: currentColor; border-radius: 3px; opacity: 0.6; z-index: 50; }
+.safe-area { position: absolute; top: 59px; left: 0; right: 0; bottom: 34px; padding: 0 20px; }
+.plant-card { transition: transform var(--motion-duration) var(--motion-easing); }
+.plant-card:active { transform: scale(0.97); }
+</style>
+</head>
+<body>
+<div class="device">
+  <div class="status-bar"><span>9:41</span><span>·· 􀙇 􀛨</span></div>
+  <div class="safe-area">
+    <h1 style="padding: 24px 0 4px; font-size: 32px; font-weight: 600; color: rgba(0,0,0,0.85);">Garden</h1>
+    <p style="font-size: 15px; opacity: 0.55; padding-bottom: 24px;">2 thirsty</p>
+
+    <!-- swiftui: ForEach with .glassEffect cards -->
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <!-- swiftui: PlantCard with .glassEffect() | fallback .background(.ultraThinMaterial) -->
+      <div class="plant-card" style="background: rgba(255,255,255,0.6); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-radius: var(--radius-card); padding: 18px; display: flex; align-items: center; gap: 14px;">
+        <span style="font-size: 36px;">🌱</span>
+        <div style="flex: 1;">
+          <p style="font-size: 16px; font-weight: 500;">Mona</p>
+          <p style="font-size: 13px; opacity: 0.6; margin-top: 2px;">Monstera</p>
+          <p style="font-size: 12px; opacity: 0.45; margin-top: 6px; font-style: italic;">Needs water · 6 days</p>
+        </div>
+        <button style="background: var(--color-primary); color: white; border: none; border-radius: 12px; padding: 10px 16px; font-size: 14px; font-weight: 500; cursor: pointer;">Water</button>
+      </div>
+      <div class="plant-card" style="background: rgba(255,255,255,0.6); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-radius: var(--radius-card); padding: 18px; display: flex; align-items: center; gap: 14px;">
+        <span style="font-size: 36px;">🪴</span>
+        <div style="flex: 1;">
+          <p style="font-size: 16px; font-weight: 500;">Felix</p>
+          <p style="font-size: 13px; opacity: 0.6; margin-top: 2px;">Fiddle leaf fig</p>
+          <p style="font-size: 12px; opacity: 0.45; margin-top: 6px; font-style: italic;">Soon · 4 days</p>
+        </div>
+        <button style="background: var(--color-primary); color: white; border: none; border-radius: 12px; padding: 10px 16px; font-size: 14px; font-weight: 500; cursor: pointer;">Water</button>
+      </div>
+      <div class="plant-card" style="background: rgba(255,255,255,0.6); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-radius: var(--radius-card); padding: 18px; display: flex; align-items: center; gap: 14px;">
+        <span style="font-size: 36px;">🌵</span>
+        <div style="flex: 1;">
+          <p style="font-size: 16px; font-weight: 500;">Spike</p>
+          <p style="font-size: 13px; opacity: 0.6; margin-top: 2px;">Cactus</p>
+          <p style="font-size: 12px; opacity: 0.45; margin-top: 6px;">In 5 days</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="home-indicator"></div>
+</div>
+</body>
+</html>

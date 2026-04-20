@@ -1,0 +1,54 @@
+{
+  "dna_id": "editorial-crisp",
+  "version": "1.1.0",
+  "ios_min": 17,
+  "color": {
+    "primary": "#0066FF",
+    "background": { "light": "#FFFFFF", "dark": "#0A0A0A" },
+    "semantic": "system",
+    "accents": []
+  },
+  "typography": {
+    "scale": "1.20",
+    "families": { "primary": "SF Pro", "mono": "SF Mono" }
+  },
+  "spacing": { "rhythm": [4, 8, 12, 16, 20, 24, 32, 48] },
+  "motion": {
+    "primary_spring": null,
+    "primary_easing": "easeInOut",
+    "transition_duration_ms": 300,
+    "easing": "easeInOut",
+    "swiftui_primitives": ["easeInOut", "linear", "transition.opacity", "transition.move"]
+  },
+  "components": {
+    "card": { "corner_radius": 8, "shadow": "none", "border": "1px hairline" },
+    "navbar": { "material": "regularMaterial", "border_bottom": "hairline" }
+  },
+  "stack_decisions": {
+    "min_ios": 17,
+    "bootstrap": "vanilla-xcode",
+    "test_framework": "swift-testing",
+    "concurrency": "swift6-strict",
+    "state": "observable-mainactor",
+    "persistence": "swiftdata",
+    "architecture": "mvvm-observable",
+    "di": "manual-constructor",
+    "navigation": "navigation-stack-path-binding"
+  },
+  "overrides": [
+    {
+      "date": "2026-04-20",
+      "key": "ios_min",
+      "from": 26,
+      "to": 17,
+      "reason": "Todo app mass-market — Liquid Glass faydası sınırlı, geniş cihaz tabanı önemli"
+    },
+    {
+      "date": "2026-04-20",
+      "key": "motion.transition_duration_ms",
+      "from": 200,
+      "to": 300,
+      "reason": "Kullanıcı app genelinde daha sakin tempo istedi. DNA felsefesi 'kısa ve belirleyici' satırı revize edildi — 'kısa ama nefes alan' oldu."
+    }
+  ]
+}

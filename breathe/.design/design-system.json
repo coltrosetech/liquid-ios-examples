@@ -1,0 +1,47 @@
+{
+  "dna_id": "liquid-native",
+  "version": "1.1.0",
+  "ios_min": 26,
+  "color": {
+    "primary": "#007AFF",
+    "background": { "light": "#F2F2F7", "dark": "#000000" },
+    "semantic": "system",
+    "accents": []
+  },
+  "typography": {
+    "scale": "1.25",
+    "families": { "primary": "SF Pro", "mono": "SF Mono" }
+  },
+  "spacing": { "rhythm": [4, 8, 12, 16, 24, 32, 48, 64] },
+  "motion": {
+    "primary_spring": { "response": 0.7, "damping": 0.8 },
+    "primary_easing": null,
+    "transition_duration_ms": 500,
+    "easing": "spring",
+    "swiftui_primitives": ["spring", "matchedGeometryEffect", "phaseAnimator", "glassEffect", "easeInOut"]
+  },
+  "components": {
+    "card": { "corner_radius": 16, "shadow": "soft", "blur_intensity": "regular" },
+    "navbar": { "material": "glassEffect", "fallback_material": "ultraThinMaterial" }
+  },
+  "stack_decisions": {
+    "min_ios": 26,
+    "bootstrap": "vanilla-xcode",
+    "test_framework": "swift-testing",
+    "concurrency": "swift6-strict",
+    "state": "observable-mainactor",
+    "persistence": "swiftdata",
+    "architecture": "mvvm-observable",
+    "di": "manual-constructor",
+    "navigation": "navigation-stack-path-binding"
+  },
+  "overrides": [
+    {
+      "date": "2026-04-20",
+      "key": "motion.primary_spring.response",
+      "from": 0.5,
+      "to": 0.7,
+      "reason": "Kullanıcı app genelinde daha sakin hissetmesini istedi. Liquid Native'in meditatif karakterine 0.7 daha uygun — geçişler nefes kadar yavaş."
+    }
+  ]
+}

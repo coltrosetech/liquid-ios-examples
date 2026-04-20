@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Breathe — Playful Character</title>
+<style>
+:root {
+  --color-primary: #FF5E5B; --color-bg-light: #FFFEF7; --color-bg-dark: #1B1A1F;
+  --motion-duration: 400ms; --motion-easing: cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+@media (prefers-color-scheme: light) { :root { --color-bg: var(--color-bg-light); } }
+@media (prefers-color-scheme: dark) { :root { --color-bg: var(--color-bg-dark); color: white; } }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'SF Pro Rounded', -apple-system, sans-serif; background: #2a2a2a; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 40px 0; }
+.device { width: 393px; height: 852px; background: linear-gradient(180deg, #FFF1E0 0%, #FFE0D4 100%); border-radius: 55px; position: relative; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.5); }
+.device::before { content: ""; position: absolute; top: 11px; left: 50%; /* swiftui: layout-only */ transform: translateX(-50%); width: 126px; height: 37px; background: #000; border-radius: 20px; z-index: 100; }
+.status-bar { position: absolute; top: 0; left: 0; right: 0; height: 54px; display: flex; justify-content: space-between; align-items: flex-end; padding: 0 24px 8px; font-size: 17px; font-weight: 600; z-index: 50; }
+.home-indicator { position: absolute; bottom: 8px; left: 50%; /* swiftui: layout-only */ transform: translateX(-50%); width: 134px; height: 5px; background: currentColor; border-radius: 3px; opacity: 0.6; z-index: 50; }
+.safe-area { position: absolute; top: 59px; left: 0; right: 0; bottom: 34px; padding: 0 20px; }
+
+@keyframes breathe-bouncy {
+  0%, 100% { transform: scale(0.8) rotate(-2deg); }
+  50% { transform: scale(1.05) rotate(2deg); }
+}
+/* swiftui: phaseAnimator with spring(response: 0.4, damping: 0.6) */
+.breath-blob { animation: breathe-bouncy 6s var(--motion-easing) infinite; }
+
+@keyframes pop { 0% { transform: scale(1); } 40% { transform: scale(1.15); } 100% { transform: scale(1); } }
+.btn { /* swiftui: .scaleEffect on press */ transition: transform var(--motion-duration) var(--motion-easing); }
+.btn:active { transform: scale(0.94); }
+.fire-pop { animation: pop 0.4s var(--motion-easing); }
+</style>
+</head>
+<body>
+<div class="device">
+  <div class="status-bar"><span>9:41</span><span>·· 􀙇 􀛨</span></div>
+  <div class="safe-area">
+
+    <div style="display: flex; align-items: center; justify-content: space-between; padding: 24px 0 8px;">
+      <div>
+        <h1 style="font-size: 28px; font-weight: 700;">Hey there!</h1>
+        <p style="font-size: 14px; opacity: 0.6;">Ready for today's breath?</p>
+      </div>
+      <!-- swiftui: HStack { Image(systemName: "flame.fill").symbolEffect(.bounce).foregroundStyle(.orange); Text("5") } -->
+      <div onclick="this.classList.remove('fire-pop'); void this.offsetWidth; this.classList.add('fire-pop');" style="display: flex; align-items: center; gap: 4px; background: white; padding: 8px 12px; border-radius: 18px; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.06);">
+        <span style="font-size: 18px;">🔥</span>
+        <span style="font-weight: 700; font-size: 16px;">5</span>
+      </div>
+    </div>
+
+    <!-- swiftui: ZStack with breath-blob centered -->
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 32px 0;">
+      <!-- swiftui: Image with phaseAnimator scale + rotation -->
+      <div class="breath-blob" style="
+        width: 200px; height: 200px;
+        border-radius: 100px;
+        background: radial-gradient(circle at 35% 35%, #FFE74C, #FF5E5B 70%);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 80px;
+        box-shadow: 0 20px 50px rgba(255, 94, 91, 0.4);
+      ">🌸</div>
+      <p style="font-size: 18px; font-weight: 600; text-align: center;">Breathe in… 🌬️</p>
+    </div>
+
+    <!-- swiftui: Button with custom borderless style -->
+    <button class="btn" style="
+      width: 100%; padding: 18px;
+      background: var(--color-primary);
+      color: white;
+      border: none;
+      border-radius: 28px;
+      font-size: 17px; font-weight: 700;
+      font-family: 'SF Pro Rounded';
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(255, 94, 91, 0.4);
+    ">Let's go! ✨</button>
+
+    <h3 style="padding: 32px 4px 12px; font-size: 18px; font-weight: 700;">Recent wins 🎉</h3>
+
+    <!-- swiftui: ForEach(sessions) { SessionCard } -->
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <div class="btn" style="background: white; border-radius: 20px; padding: 16px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span style="font-size: 28px;">🌊</span>
+          <div>
+            <p style="font-size: 15px; font-weight: 600;">Box breathing</p>
+            <p style="font-size: 12px; opacity: 0.6;">Today · 5 min</p>
+          </div>
+        </div>
+        <span style="font-size: 18px;">›</span>
+      </div>
+      <div class="btn" style="background: white; border-radius: 20px; padding: 16px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span style="font-size: 28px;">😌</span>
+          <div>
+            <p style="font-size: 15px; font-weight: 600;">4-7-8 calm</p>
+            <p style="font-size: 12px; opacity: 0.6;">Yesterday · 5 min</p>
+          </div>
+        </div>
+        <span style="font-size: 18px;">›</span>
+      </div>
+    </div>
+
+  </div>
+  <div class="home-indicator"></div>
+</div>
+</body>
+</html>

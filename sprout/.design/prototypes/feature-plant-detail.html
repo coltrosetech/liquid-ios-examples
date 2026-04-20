@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sprout — Plant Detail</title>
+<style>
+:root {
+  --color-primary: #5BC062;
+  --motion-duration: 400ms; --motion-easing: cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'SF Pro Rounded', -apple-system, sans-serif; background: #2a2a2a; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 40px 0; }
+.device { width: 393px; height: 852px; background: linear-gradient(180deg, #F0FAE5 0%, #E5F5E0 60%, #FAFAEF 100%); border-radius: 55px; position: relative; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.5); }
+.device::before { content: ""; position: absolute; top: 11px; left: 50%; /* swiftui: layout-only */ transform: translateX(-50%); width: 126px; height: 37px; background: #000; border-radius: 20px; z-index: 100; }
+.status-bar { position: absolute; top: 0; left: 0; right: 0; height: 54px; display: flex; justify-content: space-between; align-items: flex-end; padding: 0 24px 8px; font-size: 17px; font-weight: 600; z-index: 50; }
+.home-indicator { position: absolute; bottom: 8px; left: 50%; /* swiftui: layout-only */ transform: translateX(-50%); width: 134px; height: 5px; background: currentColor; border-radius: 3px; opacity: 0.6; z-index: 50; }
+.safe-area { position: absolute; top: 59px; left: 0; right: 0; bottom: 34px; padding: 0 20px; overflow-y: auto; }
+
+@keyframes leaf-wiggle {
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(4deg); }
+}
+.plant-emoji { display: inline-block; /* swiftui: phaseAnimator wiggle */ animation: leaf-wiggle 4s var(--motion-easing) infinite; }
+
+.btn { /* swiftui: .scaleEffect on press */ transition: transform var(--motion-duration) var(--motion-easing); }
+.btn:active { transform: scale(0.96); }
+.water-btn:active { transform: scale(0.94); }
+</style>
+</head>
+<body>
+<div class="device">
+  <div class="status-bar"><span>9:41</span><span>·· 􀙇 􀛨</span></div>
+  <div class="safe-area">
+
+    <!-- swiftui: NavigationStack push from GardenView.PlantCard tap -->
+    <!-- swiftui: HStack with back button + spacer + edit/delete menu -->
+    <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 0;">
+      <button class="btn" style="background: white; border: none; width: 36px; height: 36px; border-radius: 18px; font-size: 14px; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.06);">←</button>
+      <button class="btn" style="background: white; border: none; width: 36px; height: 36px; border-radius: 18px; font-size: 16px; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.06);">⋯</button>
+    </div>
+
+    <!-- Hero: big plant + name -->
+    <div style="display: flex; flex-direction: column; align-items: center; padding: 24px 0;">
+      <span class="plant-emoji" style="font-size: 100px;">🌱</span>
+      <h1 style="font-size: 32px; font-weight: 700; margin-top: 16px;">Mona</h1>
+      <p style="font-size: 15px; opacity: 0.6; margin-top: 4px;">Monstera deliciosa</p>
+    </div>
+
+    <!-- Status badge -->
+    <!-- swiftui: pill badge with thirst-aware color -->
+    <div style="display: flex; justify-content: center; padding-bottom: 20px;">
+      <div style="background: rgba(255, 94, 91, 0.12); padding: 8px 16px; border-radius: 20px; display: flex; align-items: center; gap: 6px;">
+        <span style="font-size: 14px;">🥺</span>
+        <span style="font-size: 14px; font-weight: 600; color: #D44;">Thirsty — 6 days since last drink</span>
+      </div>
+    </div>
+
+    <!-- Big water now button -->
+    <!-- swiftui: Button(title:).buttonStyle(.borderedProminent).controlSize(.large) -->
+    <button class="water-btn btn" style="
+      width: 100%;
+      padding: 18px;
+      background: var(--color-primary);
+      color: white;
+      border: none;
+      border-radius: 24px;
+      font-size: 17px; font-weight: 700;
+      font-family: 'SF Pro Rounded';
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(91, 192, 98, 0.4);
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    ">
+      <span style="font-size: 20px;">💧</span> Water now
+    </button>
+
+    <!-- Watering history bar chart -->
+    <!-- swiftui: VStack with Charts BarMark for last 14 days -->
+    <h3 style="padding: 28px 4px 12px; font-size: 14px; font-weight: 600; opacity: 0.6; text-transform: uppercase; letter-spacing: 0.05em;">Last 14 days</h3>
+    <div style="background: white; border-radius: 22px; padding: 20px 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.06);">
+      <!-- swiftui: Chart { ForEach(history) { BarMark(...) } } -->
+      <div style="display: flex; align-items: flex-end; gap: 4px; height: 100px;">
+        <!-- 14 bars; tall = days between waterings -->
+        <div style="flex: 1; height: 0%; background: rgba(0,0,0,0.05); border-radius: 3px;"></div>
+        <div style="flex: 1; height: 100%; background: var(--color-primary); border-radius: 3px;"></div>
+        <div style="flex: 1; height: 14%; background: rgba(0,0,0,0.05); border-radius: 3px;"></div>
+        <div style="flex: 1; height: 28%; background: rgba(0,0,0,0.05); border-radius: 3px;"></div>
+        <div style="flex: 1; height: 42%; background: rgba(0,0,0,0.05); border-radius: 3px;"></div>
+        <div style="flex: 1; height: 56%; background: rgba(0,0,0,0.05); border-radius: 3px;"></div>
+        <div style="flex: 1; height: 70%; background: rgba(0,0,0,0.05); border-radius: 3px;"></div>
+        <div style="flex: 1; height: 100%; background: var(--color-primary); border-radius: 3px;"></div>
+        <div style="flex: 1; height: 14%; background: rgba(0,0,0,0.05); border-radius: 3px;"></div>
+        <div style="flex: 1; height: 28%; background: rgba(0,0,0,0.05); border-radius: 3px;"></div>
+        <div style="flex: 1; height: 42%; background: rgba(0,0,0,0.05); border-radius: 3px;"></div>
+        <div style="flex: 1; height: 56%; background: rgba(0,0,0,0.05); border-radius: 3px;"></div>
+        <div style="flex: 1; height: 70%; background: rgba(0,0,0,0.05); border-radius: 3px;"></div>
+        <div style="flex: 1; height: 84%; background: linear-gradient(180deg, #FF8366, #FF5E5B); border-radius: 3px;"></div>
+      </div>
+      <p style="font-size: 11px; opacity: 0.5; margin-top: 8px; text-align: center; font-family: SF Mono;">2 waterings · avg 7d apart</p>
+    </div>
+
+    <!-- Schedule info -->
+    <h3 style="padding: 28px 4px 12px; font-size: 14px; font-weight: 600; opacity: 0.6; text-transform: uppercase; letter-spacing: 0.05em;">Schedule</h3>
+    <!-- swiftui: VStack { Text + Stepper } card -->
+    <div style="background: white; border-radius: 22px; padding: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: space-between;">
+      <div>
+        <p style="font-size: 15px; font-weight: 600;">Water every 7 days</p>
+        <p style="font-size: 12px; opacity: 0.6; margin-top: 2px;">Next reminder in 1 day</p>
+      </div>
+      <button class="btn" style="background: rgba(91, 192, 98, 0.15); color: var(--color-primary); border: none; padding: 8px 14px; border-radius: 14px; font-size: 13px; font-weight: 600; cursor: pointer;">Edit</button>
+    </div>
+
+    <div style="height: 32px;"></div>
+  </div>
+  <div class="home-indicator"></div>
+</div>
+</body>
+</html>

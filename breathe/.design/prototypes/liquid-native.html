@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Breathe — Liquid Native</title>
+<style>
+:root {
+  --color-primary: #007AFF; --color-bg-light: #F2F2F7; --color-bg-dark: #000000;
+  --motion-duration: 500ms; --motion-easing: cubic-bezier(0.32, 0.72, 0.32, 1.08);
+  --radius-card: 16px;
+}
+@media (prefers-color-scheme: light) { :root { --color-bg: var(--color-bg-light); } }
+@media (prefers-color-scheme: dark) { :root { --color-bg: var(--color-bg-dark); color: white; } }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: SF Pro, -apple-system, sans-serif; background: #2a2a2a; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 40px 0; }
+.device {
+  width: 393px; height: 852px;
+  background: linear-gradient(180deg, #B5D4F0 0%, #E0D4F0 50%, #F0D4E0 100%);
+  border-radius: 55px; position: relative; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+}
+.device::before { content: ""; position: absolute; top: 11px; left: 50%; /* swiftui: layout-only */ transform: translateX(-50%); width: 126px; height: 37px; background: #000; border-radius: 20px; z-index: 100; }
+.status-bar { position: absolute; top: 0; left: 0; right: 0; height: 54px; display: flex; justify-content: space-between; align-items: flex-end; padding: 0 24px 8px; font-size: 17px; font-weight: 600; z-index: 50; color: white; mix-blend-mode: difference; }
+.home-indicator { position: absolute; bottom: 8px; left: 50%; /* swiftui: layout-only */ transform: translateX(-50%); width: 134px; height: 5px; background: white; border-radius: 3px; opacity: 0.6; z-index: 50; mix-blend-mode: difference; }
+.safe-area { position: absolute; top: 59px; left: 0; right: 0; bottom: 34px; padding: 0 20px; display: flex; flex-direction: column; }
+
+/* Breathing circle - phaseAnimator equivalent */
+@keyframes breathe {
+  0%, 100% { transform: scale(0.85); opacity: 0.85; }
+  50% { transform: scale(1.0); opacity: 1.0; }
+}
+.breath-orb {
+  /* swiftui: phaseAnimator([0,1], { phase in scale(phase == 0 ? 0.85 : 1.0) } animation: .easeInOut(duration: 4)) */
+  animation: breathe 8s ease-in-out infinite;
+}
+
+.session-card { /* swiftui: .scaleEffect on press via .buttonStyle */ transition: transform var(--motion-duration) var(--motion-easing); }
+.session-card:active { transform: scale(0.97); }
+</style>
+</head>
+<body>
+<div class="device">
+  <div class="status-bar"><span>9:41</span><span>·· 􀙇 􀛨</span></div>
+  <div class="safe-area">
+
+    <h1 style="padding: 24px 0 4px; font-size: 32px; font-weight: 600; color: rgba(0,0,0,0.85);">Good morning</h1>
+    <p style="font-size: 15px; opacity: 0.55; padding-bottom: 16px;">Five minutes can change a day.</p>
+
+    <!-- swiftui: VStack centered with .glassEffect() on the orb wrapper -->
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 24px; padding: 32px 0;">
+      <!-- swiftui: Circle().fill(...).glassEffect() | fallback .background(.ultraThinMaterial) -->
+      <div style="
+        width: 220px; height: 220px;
+        border-radius: 110px;
+        background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95), rgba(255,255,255,0.5));
+        backdrop-filter: blur(40px) saturate(200%);
+        -webkit-backdrop-filter: blur(40px) saturate(200%);
+        box-shadow: 0 20px 60px rgba(180, 200, 240, 0.6), inset 0 2px 20px rgba(255,255,255,0.5);
+        display: flex; align-items: center; justify-content: center;
+      ">
+        <div class="breath-orb" style="
+          width: 160px; height: 160px;
+          border-radius: 80px;
+          background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(120, 160, 240, 0.7));
+          box-shadow: 0 0 60px rgba(120, 160, 240, 0.6);
+        "></div>
+      </div>
+      <p style="font-size: 16px; opacity: 0.6; font-style: italic; text-align: center;">Inhale… exhale…</p>
+    </div>
+
+    <!-- swiftui: Button("Start session").buttonStyle(.borderedProminent) with .glassEffect background -->
+    <button class="session-card" style="
+      width: 100%;
+      padding: 18px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.4);
+      font-size: 17px;
+      font-weight: 600;
+      color: rgba(0,0,0,0.85);
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    ">Start a 5-minute session</button>
+
+    <p style="text-align: center; padding-top: 24px; font-size: 13px; opacity: 0.5;">RECENT SESSIONS</p>
+
+    <!-- swiftui: ForEach(sessions) { SessionCard($0).matchedGeometryEffect(...) } -->
+    <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 12px;">
+      <!-- swiftui: SessionCard with .glassEffect() | fallback .background(.ultraThinMaterial) -->
+      <div class="session-card" style="background: rgba(255,255,255,0.55); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-radius: var(--radius-card); padding: 14px 16px; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <p style="font-size: 15px; font-weight: 500;">Box breathing</p>
+          <p style="font-size: 12px; opacity: 0.55; margin-top: 2px;">Today · 7:18 · 5 min</p>
+        </div>
+        <span style="font-size: 13px; opacity: 0.6;">›</span>
+      </div>
+      <div class="session-card" style="background: rgba(255,255,255,0.55); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-radius: var(--radius-card); padding: 14px 16px; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <p style="font-size: 15px; font-weight: 500;">4-7-8 calm</p>
+          <p style="font-size: 12px; opacity: 0.55; margin-top: 2px;">Yesterday · 22:40 · 5 min</p>
+        </div>
+        <span style="font-size: 13px; opacity: 0.6;">›</span>
+      </div>
+      <div class="session-card" style="background: rgba(255,255,255,0.55); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-radius: var(--radius-card); padding: 14px 16px; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <p style="font-size: 15px; font-weight: 500;">Focus reset</p>
+          <p style="font-size: 12px; opacity: 0.55; margin-top: 2px;">Mon · 14:05 · 3 min</p>
+        </div>
+        <span style="font-size: 13px; opacity: 0.6;">›</span>
+      </div>
+    </div>
+
+  </div>
+  <div class="home-indicator"></div>
+</div>
+</body>
+</html>

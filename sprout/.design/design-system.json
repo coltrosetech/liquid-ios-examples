@@ -1,0 +1,47 @@
+{
+  "dna_id": "playful-character",
+  "version": "1.0.0",
+  "ios_min": 17,
+  "color": {
+    "primary": "#5BC062",
+    "background": { "light": "#FFFEF7", "dark": "#1B1A1F" },
+    "semantic": "custom",
+    "accents": ["#FFE74C", "#FF8366", "#3B9BFF"]
+  },
+  "typography": {
+    "scale": "1.333",
+    "families": { "primary": "SF Pro Rounded", "mono": "SF Mono" }
+  },
+  "spacing": { "rhythm": [4, 8, 12, 16, 20, 24, 32, 48, 64] },
+  "motion": {
+    "primary_spring": { "response": 0.4, "damping": 0.6 },
+    "primary_easing": null,
+    "transition_duration_ms": 400,
+    "easing": "spring",
+    "swiftui_primitives": ["spring", "phaseAnimator", "symbolEffect.bounce", "TimelineView", "transition.scale"]
+  },
+  "components": {
+    "card": { "corner_radius": 22, "shadow": "playful", "blur_intensity": "none" },
+    "navbar": { "material": "regularMaterial", "accent_underline": false }
+  },
+  "stack_decisions": {
+    "min_ios": 17,
+    "bootstrap": "vanilla-xcode",
+    "test_framework": "swift-testing",
+    "concurrency": "swift6-strict",
+    "state": "observable-mainactor",
+    "persistence": "swiftdata",
+    "architecture": "mvvm-observable",
+    "di": "manual-constructor",
+    "navigation": "navigation-stack-path-binding"
+  },
+  "overrides": [
+    {
+      "date": "2026-04-20",
+      "key": "ios_min",
+      "from": 26,
+      "to": 17,
+      "reason": "Mass-market lifestyle app — Liquid Glass marjinal fayda, geniş cihaz tabanı önemli (plant parents her segmentte)"
+    }
+  ]
+}
