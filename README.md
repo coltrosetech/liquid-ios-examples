@@ -1,5 +1,7 @@
 # liquid-ios-examples
 
+> **Deprecated — 2026-10-21.** This project is no longer maintained or supported. Do not install or use it for new work. Source and history are retained for reference.
+
 [**liquid-ios**](https://github.com/coltrosetech/liquid-ios) plugin'i ile üretilmiş üç iOS demo uygulaması. Her biri farklı bir **Design DNA** kullanır, her biri gerçek SwiftUI kodu — prototip değil.
 
 Plugin'in iddiası basit: _"HTML prototipte onayladığın hareket, Swift tarafında da aynen yaşasın."_ Bu repo o iddianın kanıtı. Üç app, üç farklı tasarım dili, üç kez kanıtlanmış motion-fidelity eşleşmesi.
@@ -65,11 +67,13 @@ MIT — istediğin gibi fork'la, kendi tasarım dilini yaz.
 
 ---
 
-## Plugin'i de kullanmak istersen
+## Tarihsel kurulum bilgisi — kullanımdan kaldırıldı
+
+Aşağıdaki adımlar arşiv kaydıdır; yeni kurulum için kullanılmamalıdır.
 
 1. [coltrosetech/liquid-ios](https://github.com/coltrosetech/liquid-ios) repo'sunu klonla.
 2. `INSTALL.md` adımlarıyla Claude Code'a kur.
 3. Claude Code'a "SwiftUI todo app başlatalım, editorial crisp DNA ile" gibi bir şey yaz.
 4. 3 HTML prototip gelir, birini seçersin, sonrası otomatik.
 
-Plugin v0.1.1'de. Sorularını Issues'a yaz.
+Son arşivlenen plugin sürümü v0.1.1'dir. Bakım ve destek sonlandırılmıştır.
